@@ -1,0 +1,7 @@
+<svg width="900" height="1125" viewBox="0 0 900 1125" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1125" fill="#141414"/>
+  <path d="M327 243H573L704 340L616 467L584 431V844H316V431L284 467L196 340L327 243Z" fill="#F6F4EF"/>
+  <path d="M374 243C384 287 409 309 450 309C491 309 516 287 526 243" stroke="#050505" stroke-width="9"/>
+  <text x="450" y="543" fill="#050505" font-family="Arial" font-size="58" font-weight="800" text-anchor="middle">EVOLVV</text>
+  <text x="450" y="601" fill="#050505" font-family="Arial" font-size="28" font-weight="700" text-anchor="middle">WEAR THE CHANGE</text>
+</svg>

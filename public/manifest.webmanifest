@@ -1,0 +1,49 @@
+{
+  "name": "Evolvv Admin",
+  "short_name": "Evolvv",
+  "description": "Installable admin dashboard for managing Evolvv orders, products, and customers.",
+  "start_url": "/admin/login",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "categories": ["business", "shopping", "productivity"],
+  "icons": [
+    {
+      "src": "/admin-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/admin-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/admin-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "url": "/admin/dashboard"
+    },
+    {
+      "name": "Orders",
+      "short_name": "Orders",
+      "url": "/admin/orders"
+    },
+    {
+      "name": "Products",
+      "short_name": "Products",
+      "url": "/admin/products"
+    }
+  ]
+}

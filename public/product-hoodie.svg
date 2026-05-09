@@ -1,0 +1,8 @@
+<svg width="900" height="1125" viewBox="0 0 900 1125" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1125" fill="#111"/>
+  <path d="M305 268C326 219 379 190 450 190C521 190 574 219 595 268L700 330L633 489V845H267V489L200 330L305 268Z" fill="#050505" stroke="#F6F4EF" stroke-width="10"/>
+  <path d="M372 253C388 290 414 309 450 309C486 309 512 290 528 253" stroke="#F6F4EF" stroke-width="9"/>
+  <path d="M361 515H539V558H361V515Z" fill="#F6F4EF"/>
+  <path d="M389 681H511" stroke="#F6F4EF" stroke-width="7"/>
+  <text x="450" y="552" fill="#050505" font-family="Arial" font-size="32" font-weight="700" text-anchor="middle">EVOLVV</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg width="900" height="1125" viewBox="0 0 900 1125" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1125" fill="#0A0A0A"/>
+  <path d="M319 203H581L621 875H493L451 385L407 875H279L319 203Z" fill="#181818" stroke="#F6F4EF" stroke-width="9"/>
+  <path d="M331 326H437V458H331V326Z" stroke="#F6F4EF" stroke-width="8"/>
+  <path d="M463 326H569V458H463V326Z" stroke="#F6F4EF" stroke-width="8"/>
+  <path d="M357 233H543" stroke="#F6F4EF" stroke-width="8"/>
+  <text x="450" y="573" fill="#F6F4EF" font-family="Arial" font-size="32" font-weight="800" text-anchor="middle">CHANGE CARGO</text>
+</svg>

@@ -1,0 +1,10 @@
+node_modules
+.next
+.env
+.env.local
+coverage
+dist
+*.log
+.npm-cache
+.DS_Store
+Web/.DS_Store
