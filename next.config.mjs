@@ -5,15 +5,7 @@ const nextConfig = {
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "images.unsplash.com" }
     ]
-  },
-  webpack: (config) => {
-    config.watchOptions = {
-      ...config.watchOptions,
-      ignored: ["**/.npm-cache/**", "**/node_modules/**"]
-    };
-    return config;
-  },
-  turbopack: {}
+  }
 };
 
 export default nextConfig;
