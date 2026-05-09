@@ -12,7 +12,8 @@ const nextConfig = {
       ignored: ["**/.npm-cache/**", "**/node_modules/**"]
     };
     return config;
-  }
+  },
+  turbopack: {}
 };
 
 export default nextConfig;
