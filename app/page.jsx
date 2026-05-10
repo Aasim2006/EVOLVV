@@ -10,25 +10,25 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="noise relative min-h-screen overflow-hidden px-5 pt-32 md:px-8">
+      <section className="noise relative min-h-screen overflow-hidden px-5 pt-24 md:px-8 md:pt-32">
         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-ink to-transparent" />
-        <div className="mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl items-center gap-12 md:grid-cols-[1.05fr_0.95fr]">
-          <div className="relative z-10 max-w-3xl">
-            <p className="mb-5 text-xs uppercase tracking-[0.5em] text-zinc-500">Evolvv Studio</p>
-            <h1 className="font-display text-6xl font-bold leading-[0.88] text-bone md:text-8xl lg:text-9xl">
+        <div className="mx-auto flex flex-col md:grid min-h-[calc(100vh-8rem)] max-w-7xl justify-center gap-10 md:items-center md:gap-12 md:grid-cols-[1.05fr_0.95fr]">
+          <div className="relative z-10 max-w-3xl mt-8 md:mt-0">
+            <p className="mb-4 text-xs uppercase tracking-[0.5em] text-zinc-500 md:mb-5">Evolvv Studio</p>
+            <h1 className="font-display text-5xl font-bold leading-[0.9] text-bone sm:text-6xl md:text-8xl lg:text-9xl md:leading-[0.88]">
               Wear the Change
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-zinc-400 md:text-2xl">
+            <p className="mt-4 max-w-xl text-base text-zinc-400 sm:text-lg md:text-2xl md:mt-6">
               Different Breed. Different Drip.
             </p>
             <Link
               href="/shop"
-              className="focus-ring mt-10 inline-flex bg-bone px-8 py-4 text-sm font-bold uppercase tracking-[0.25em] text-ink transition hover:bg-white hover:shadow-glow"
+              className="focus-ring mt-8 inline-flex bg-bone px-6 py-3 text-xs md:px-8 md:py-4 md:text-sm font-bold uppercase tracking-[0.25em] text-ink transition hover:bg-white hover:shadow-glow md:mt-10"
             >
               Shop Now
             </Link>
           </div>
-          <div className="relative z-10 aspect-[4/5] border border-white/10 bg-[url('/products/black-hoodie-1.png')] bg-cover bg-center shadow-glow" />
+          <div className="relative z-10 aspect-[4/5] w-full max-w-sm mx-auto md:max-w-none md:w-auto border border-white/10 bg-[url('/products/black-hoodie-1.png')] bg-cover bg-top md:bg-center shadow-glow" />
         </div>
       </section>
 
