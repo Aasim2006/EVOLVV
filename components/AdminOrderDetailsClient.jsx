@@ -82,6 +82,8 @@ export default function AdminOrderDetailsClient({ id }) {
 }
 
 function OrderImage({ title, src }) {
+  const fileName = `evolvv-${title.toLowerCase().replace(/\s+/g, "-")}.png`;
+
   if (!src) {
     return (
       <div className="border border-white/10 bg-ink p-3">
@@ -92,12 +94,28 @@ function OrderImage({ title, src }) {
   }
 
   return (
-    <a href={src} target="_blank" rel="noreferrer" className="block border border-white/10 bg-ink p-3 transition hover:border-white/25">
+    <div className="border border-white/10 bg-ink p-3">
       <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">{title}</p>
       <div className="mt-3 flex aspect-square items-center justify-center overflow-hidden bg-black">
         <img src={src} alt={title} className="h-full w-full object-contain" />
       </div>
-      <p className="mt-2 text-xs text-zinc-600">Open full image</p>
-    </a>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <a
+          href={src}
+          target="_blank"
+          rel="noreferrer"
+          className="focus-ring border border-white/10 px-3 py-2 text-center text-xs uppercase tracking-[0.16em] text-zinc-300 transition hover:border-white/25 hover:text-bone"
+        >
+          Open
+        </a>
+        <a
+          href={src}
+          download={fileName}
+          className="focus-ring bg-bone px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.16em] text-ink transition hover:bg-white"
+        >
+          Download
+        </a>
+      </div>
+    </div>
   );
 }

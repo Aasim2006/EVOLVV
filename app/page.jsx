@@ -42,13 +42,38 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          <div className="relative z-10 mx-auto flex w-full max-w-sm items-end justify-center lg:max-w-2xl">
-            <div className="absolute inset-x-8 bottom-8 top-20 border border-white/10 bg-white/[0.03] shadow-glow lg:inset-x-16 lg:top-24" />
-            <img
-              src="/products/black-hoodie-1.png"
-              alt="Black Evolvv hoodie"
-              className="relative z-10 h-auto max-h-[56vh] w-full object-contain object-bottom drop-shadow-[0_28px_70px_rgba(0,0,0,0.75)] sm:max-h-[62vh] lg:max-h-[72vh]"
-            />
+          <div className="relative z-10 mx-auto grid w-full max-w-md grid-cols-2 gap-3 lg:max-w-2xl lg:gap-4">
+            <div className="col-span-2 border border-white/10 bg-white/[0.04] p-4 shadow-glow">
+              <div className="relative aspect-[16/10] overflow-hidden bg-ink">
+                <img
+                  src="/products/off-white-tee-1.png"
+                  alt="Off-white Evolvv tee"
+                  className="absolute inset-0 h-full w-full object-contain"
+                />
+              </div>
+              <div className="mt-4 flex items-center justify-between gap-4">
+                <p className="text-xs uppercase tracking-[0.28em] text-zinc-500">Custom Ready</p>
+                <p className="text-sm text-bone">Upload. Preview. Order.</p>
+              </div>
+            </div>
+            <div className="border border-white/10 bg-white/[0.03] p-3">
+              <div className="relative aspect-square overflow-hidden bg-ink">
+                <img
+                  src="/products/navy-polo-1.png"
+                  alt="Navy Evolvv polo"
+                  className="absolute inset-0 h-full w-full object-contain"
+                />
+              </div>
+            </div>
+            <div className="border border-white/10 bg-white/[0.03] p-3">
+              <div className="relative aspect-square overflow-hidden bg-ink">
+                <img
+                  src="/products/cap-2.jpg"
+                  alt="Evolvv cap"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
