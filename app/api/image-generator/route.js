@@ -35,13 +35,10 @@ export async function POST(request) {
 
       return editWithCloudflare(
         [
-          `Use image 1 as the base mockup: the back of a ${shirtColor} ${productName}.`,
-          "Use image 2 as the customer artwork.",
-          "Remove the artwork background completely, preserving only the actual design.",
-          "Resize the artwork proportionally so it fits naturally inside the back print area.",
-          "Blend it into the T-shirt as realistic screen print ink with subtle fabric texture, wrinkles, shadows, and shirt color interaction.",
-          "Preserve the artwork content and colors as much as possible.",
-          "Keep the result as a clean ecommerce back-of-shirt mockup. Do not add extra text, logos, people, hands, hangers, watermarks, or a new design."
+          `Use image 1 as the base ecommerce mockup for the back of a ${shirtColor} ${productName}.`,
+          "Place image 2 as the customer artwork inside the back print area.",
+          "Keep the artwork content, proportions, and colors unchanged.",
+          "Use a clean product-only result with no people, hands, hangers, watermark, extra lettering, or new logo."
         ].join(" "),
         [mockupImage, designImage],
         quality
@@ -54,6 +51,15 @@ export async function POST(request) {
 
     return generateWithCloudflare(prompt.trim(), quality);
   } catch (error) {
+    if (isSafetyFilterMessage(error.message)) {
+      return NextResponse.json(
+        {
+          code: "CONTENT_FILTERED",
+          error: "AI blend was blocked for this design. You can still add the regular mockup to cart."
+        },
+        { status: 422 }
+      );
+    }
     return NextResponse.json({ error: error.message || "Image generation failed." }, { status: 500 });
   }
 }
@@ -84,6 +90,15 @@ async function editWithCloudflare(prompt, images, quality = "medium") {
 
   if (!response.ok || !data.success) {
     const message = data.errors?.[0]?.message || data.error || "Cloudflare image editing failed.";
+    if (isSafetyFilterMessage(message)) {
+      return NextResponse.json(
+        {
+          code: "CONTENT_FILTERED",
+          error: "AI blend was blocked for this design. You can still add the regular mockup to cart."
+        },
+        { status: 422 }
+      );
+    }
     return NextResponse.json({ error: message }, { status: response.status });
   }
 
@@ -113,6 +128,15 @@ async function generateWithCloudflare(prompt, quality = "medium") {
 
   if (!response.ok || !data.success) {
     const message = data.errors?.[0]?.message || data.error || "Cloudflare image generation failed.";
+    if (isSafetyFilterMessage(message)) {
+      return NextResponse.json(
+        {
+          code: "CONTENT_FILTERED",
+          error: "AI generation was blocked for this prompt. Try a simpler product-safe prompt."
+        },
+        { status: 422 }
+      );
+    }
     return NextResponse.json({ error: message }, { status: response.status });
   }
 
@@ -141,6 +165,10 @@ function qualityToSteps(quality) {
   if (quality === "low") return 4;
   if (quality === "high") return 8;
   return 6;
+}
+
+function isSafetyFilterMessage(message = "") {
+  return /flagged|safety|moderation|content.?filter|policy/i.test(message);
 }
 
 function dataUrlToBlob(dataUrl) {

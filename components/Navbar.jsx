@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useCart } from "@/components/CartProvider";
 
 const navItems = [
@@ -14,7 +13,6 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
   const [accountLabel, setAccountLabel] = useState("Login");
   const [accountHref, setAccountHref] = useState("/login");
   const { items } = useCart();
@@ -35,17 +33,17 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/80 backdrop-blur-xl">
-      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
-        <Link href="/" className="font-display text-sm uppercase tracking-[0.45em] text-bone">
+      <nav className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-5 md:h-20 md:flex-row md:items-center md:justify-between md:px-8 md:py-0">
+        <Link href="/" className="font-display text-sm uppercase tracking-[0.45em] text-bone md:shrink-0">
           Evolvv
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="flex items-center gap-5 overflow-x-auto whitespace-nowrap pb-1 text-sm md:gap-8 md:overflow-visible md:pb-0">
           {itemsWithAccount.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="group relative text-sm text-zinc-300 transition hover:text-white"
+              className="group relative shrink-0 text-zinc-300 transition hover:text-white"
             >
               {item.label}
               {item.label === "Cart" && count > 0 ? (
@@ -57,33 +55,7 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
-
-        <div className="flex items-center gap-4">
-          <button
-            aria-label="Toggle menu"
-            onClick={() => setOpen((value) => !value)}
-            className="focus-ring luxury-border h-10 w-10 text-bone md:hidden"
-          >
-            {open ? "X" : "="}
-          </button>
-        </div>
       </nav>
-
-      {open ? (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          className="border-t border-white/10 bg-ink px-5 py-4 md:hidden"
-        >
-          <div className="flex flex-col gap-4">
-            {itemsWithAccount.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-      ) : null}
     </header>
   );
 }

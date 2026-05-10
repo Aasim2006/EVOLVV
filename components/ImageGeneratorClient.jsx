@@ -99,7 +99,11 @@ export default function ImageGeneratorClient() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || "AI blend failed.");
+        setError(
+          data.code === "CONTENT_FILTERED"
+            ? "AI blend was blocked for this design. You can still add the regular mockup to cart."
+            : data.error || "AI blend failed."
+        );
         return;
       }
 
