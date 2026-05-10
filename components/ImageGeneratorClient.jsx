@@ -11,6 +11,8 @@ const shirtColors = [
   { name: "Ash", value: "#A3A3A3", ink: "#050505" }
 ];
 
+const CUSTOMIZATION_FEE = 120;
+
 export default function ImageGeneratorClient() {
   const { addItem } = useCart();
   const products = useMemo(
@@ -125,12 +127,19 @@ export default function ImageGeneratorClient() {
       const cartImage = mockupImage.startsWith("data:image/")
         ? await compressImageDataUrl(mockupImage, 720)
         : mockupImage;
+      const designImage = await compressImageDataUrl(designUrl, 720);
+      const basePrice = selectedProduct?.price || 400;
       addItem(
         {
           _id: `custom-${Date.now()}`,
           name: `Custom ${selectedProduct?.name || "T-Shirt"}`,
-          price: selectedProduct?.price || 400,
+          price: basePrice + CUSTOMIZATION_FEE,
+          basePrice,
+          customizationFee: CUSTOMIZATION_FEE,
           image: cartImage,
+          mockupImage: cartImage,
+          designImage,
+          designName,
           custom: true
         },
         "Custom"

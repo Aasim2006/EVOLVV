@@ -37,12 +37,24 @@ export default function AdminOrderDetailsClient({ id }) {
             <h2 className="mt-2 font-display text-3xl">{order.user?.name || order.address?.fullName || "Guest"}</h2>
             <div className="mt-5 divide-y divide-white/10">
               {(order.items || []).map((item, index) => (
-                <div key={`${item.name}-${index}`} className="flex justify-between gap-4 py-4">
-                  <div>
+                <div key={`${item.name}-${index}`} className="grid gap-4 py-4 md:grid-cols-[1fr_auto]">
+                  <div className="min-w-0">
                     <p>{item.name}</p>
                     <p className="text-sm text-zinc-500">Size {item.size} x {item.quantity}</p>
+                    {item.custom ? (
+                      <div className="mt-3">
+                        <p className="text-sm text-zinc-500">
+                          Customization fee: {formatRupees(item.customizationFee || 120)}
+                        </p>
+                        {item.designName ? <p className="mt-1 text-xs text-zinc-600">File: {item.designName}</p> : null}
+                        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                          <OrderImage title="Uploaded Design" src={item.designImage} />
+                          <OrderImage title="Mockup" src={item.mockupImage || item.image} />
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
-                  <p>{formatRupees(Number(item.price || 0) * Number(item.quantity || 0))}</p>
+                  <p className="font-semibold">{formatRupees(Number(item.price || 0) * Number(item.quantity || 0))}</p>
                 </div>
               ))}
             </div>
@@ -66,5 +78,26 @@ export default function AdminOrderDetailsClient({ id }) {
         </div>
       )}
     </AdminShell>
+  );
+}
+
+function OrderImage({ title, src }) {
+  if (!src) {
+    return (
+      <div className="border border-white/10 bg-ink p-3">
+        <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">{title}</p>
+        <p className="mt-3 text-sm text-zinc-600">Not available</p>
+      </div>
+    );
+  }
+
+  return (
+    <a href={src} target="_blank" rel="noreferrer" className="block border border-white/10 bg-ink p-3 transition hover:border-white/25">
+      <p className="text-xs uppercase tracking-[0.24em] text-zinc-500">{title}</p>
+      <div className="mt-3 flex aspect-square items-center justify-center overflow-hidden bg-black">
+        <img src={src} alt={title} className="h-full w-full object-contain" />
+      </div>
+      <p className="mt-2 text-xs text-zinc-600">Open full image</p>
+    </a>
   );
 }

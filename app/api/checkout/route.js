@@ -11,19 +11,26 @@ export async function POST(request) {
       return NextResponse.json({ error: "Invalid payment method" }, { status: 400 });
     }
 
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0) + 12;
+    const orderItems = items.map(normalizeCartItem);
+    const total = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0) + 12;
     const user = await getCurrentUser();
 
     await connectDB();
     const order = await Order.create({
       user: user?._id,
-      items: items.map((item) => ({
+      items: orderItems.map((item) => ({
         product: isObjectId(item.productId) ? item.productId : undefined,
         name: item.name,
         image: item.image,
+        mockupImage: item.mockupImage || item.image,
+        designImage: item.designImage,
+        designName: item.designName,
         size: item.size,
         quantity: item.quantity,
-        price: item.price
+        price: item.price,
+        basePrice: item.basePrice,
+        customizationFee: item.customizationFee,
+        custom: Boolean(item.custom)
       })),
       address,
       total,
@@ -95,4 +102,24 @@ export async function POST(request) {
 
 function isObjectId(value) {
   return typeof value === "string" && /^[a-f\d]{24}$/i.test(value);
+}
+
+function normalizeCartItem(item) {
+  const quantity = Math.max(1, Number(item.quantity || 1));
+  const isCustom = Boolean(item.custom);
+  const customizationFee = isCustom ? Number(item.customizationFee || 120) : Number(item.customizationFee || 0);
+  const incomingPrice = Number(item.price || 0);
+  const basePrice = isCustom
+    ? Number(item.basePrice || Math.max(incomingPrice - Number(item.customizationFee || 0), 0))
+    : Number(item.basePrice || incomingPrice);
+  const price = isCustom ? Math.max(incomingPrice, basePrice + customizationFee) : incomingPrice;
+
+  return {
+    ...item,
+    quantity,
+    price,
+    basePrice,
+    customizationFee,
+    custom: isCustom
+  };
 }

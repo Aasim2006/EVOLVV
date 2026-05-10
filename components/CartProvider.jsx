@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const CartContext = createContext(null);
+const CUSTOMIZATION_FEE = 120;
 
 export function useCart() {
   const context = useContext(CartContext);
@@ -17,7 +18,7 @@ export default function CartProvider({ children }) {
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem("evolvv_cart");
-      setItems(saved ? JSON.parse(saved) : []);
+      setItems(saved ? JSON.parse(saved).map(normalizeCartItem) : []);
     } catch {
       setItems([]);
     } finally {
@@ -32,7 +33,7 @@ export default function CartProvider({ children }) {
     } catch {
       const slimItems = items.map((item) =>
         item.custom && item.image?.startsWith("data:image/")
-          ? { ...item, image: "/product-tee.svg" }
+          ? { ...item, image: "/product-tee.svg", mockupImage: "/product-tee.svg", designImage: "" }
           : item
       );
       window.localStorage.setItem("evolvv_cart", JSON.stringify(slimItems));
@@ -57,7 +58,12 @@ export default function CartProvider({ children }) {
           href: product.custom ? "/image-generator" : `/product/${product.slug || product._id}`,
           name: product.name,
           price: product.price,
+          basePrice: product.basePrice,
+          customizationFee: product.customizationFee,
           image: product.image || product.images?.[0]?.url,
+          mockupImage: product.mockupImage,
+          designImage: product.designImage,
+          designName: product.designName,
           size,
           custom: product.custom,
           quantity: 1
@@ -90,4 +96,15 @@ export default function CartProvider({ children }) {
 
   const value = { items, addItem, updateQuantity, removeItem, clearCart, subtotal };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+}
+
+function normalizeCartItem(item) {
+  if (!item?.custom || item.customizationFee) return item;
+
+  return {
+    ...item,
+    basePrice: item.basePrice || item.price,
+    customizationFee: CUSTOMIZATION_FEE,
+    price: Number(item.price || 0) + CUSTOMIZATION_FEE
+  };
 }

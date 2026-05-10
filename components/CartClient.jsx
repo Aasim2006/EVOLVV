@@ -47,7 +47,11 @@ export default function CartClient() {
                       {item.name}
                     </Link>
                     <p className="mt-1 text-sm text-zinc-500">Size {item.size}</p>
-                    {item.custom ? <p className="mt-1 text-sm text-zinc-500">Custom back print</p> : null}
+                    {item.custom ? (
+                      <p className="mt-1 text-sm text-zinc-500">
+                        Custom back print + {formatRupees(item.customizationFee || 120)}
+                      </p>
+                    ) : null}
                     <button onClick={() => removeItem(item.key)} className="mt-4 text-sm text-zinc-400 underline">
                       Remove
                     </button>
