@@ -36,7 +36,8 @@ export async function POST(request) {
       return editWithCloudflare(
         [
           `Use image 1 as the base ecommerce mockup for the back of a ${shirtColor} ${productName}.`,
-          "Place image 2 as the customer artwork inside the back print area.",
+          "Place only the non-transparent artwork from image 2 inside the back print area.",
+          "Ignore and remove any remaining flat white, black, or solid-color artwork background.",
           "Keep the artwork content, proportions, and colors unchanged.",
           "Use a clean product-only result with no people, hands, hangers, watermark, extra lettering, or new logo."
         ].join(" "),

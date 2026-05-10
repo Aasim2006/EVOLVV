@@ -42,7 +42,7 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          <div className="relative z-10 mx-auto grid w-full max-w-md grid-cols-2 gap-3 lg:max-w-2xl lg:gap-4">
+          <div className="relative z-10 mx-auto hidden w-full max-w-md grid-cols-2 gap-3 md:grid lg:max-w-2xl lg:gap-4">
             <div className="col-span-2 border border-white/10 bg-white/[0.04] p-4 shadow-glow">
               <div className="relative aspect-[16/10] overflow-hidden bg-ink">
                 <img

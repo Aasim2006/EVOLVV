@@ -83,7 +83,7 @@ export default function ImageGeneratorClient() {
         designScale,
         designY
       });
-      const designImage = await resizeImageDataUrl(designUrl, 512);
+      const designImage = await removeFlatBackgroundDataUrl(designUrl, 512);
       const response = await fetch("/api/image-generator", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -424,6 +424,18 @@ async function resizeImageDataUrl(dataUrl, maxSize) {
   canvas.width = Math.max(1, Math.round(image.width * scale));
   canvas.height = Math.max(1, Math.round(image.height * scale));
   const context = canvas.getContext("2d");
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  return canvas.toDataURL("image/png");
+}
+
+async function removeFlatBackgroundDataUrl(dataUrl, maxSize) {
+  const image = await removeFlatBackground(dataUrl);
+  const scale = Math.min(maxSize / image.width, maxSize / image.height, 1);
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(image.width * scale));
+  canvas.height = Math.max(1, Math.round(image.height * scale));
+  const context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
   context.drawImage(image, 0, 0, canvas.width, canvas.height);
   return canvas.toDataURL("image/png");
 }
